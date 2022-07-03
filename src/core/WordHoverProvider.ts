@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { checkWord } from './CheckWord';
 import { ExtractWord_COMMAND, ModuleStartFolder, SetLocaleModuleId_COMMAND } from './Constant';
 import { dic, getDicByKey } from './LocalDicData';
 
@@ -52,6 +53,7 @@ export function replaceSelectedWords(word: {selection: vscode.Selection, word: s
             }
             vscode.workspace.applyEdit(edit).then(res => {
                 vscode.workspace.saveAll();
+                checkWord();
             });
         }
     });

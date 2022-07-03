@@ -10,7 +10,9 @@ import { removeFileComment, trimSpacePosition, trimWhiteSpace } from './utils';
 const DOUBLE_BYTE_REGEX = /([^\`\~\!\@\$\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/]+)/g;
 const TEMPLATE_REGEX = /([^\`\~\!\@\$\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/]+)/g;
 const TEMPLATE_ATTR_REGEX = /\'([^\`\~\!\@\$\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/]+)\'/g;
-const TEMPLATE_ATTRS = ['label', 'title', 'placeholder', 'defaultLabel', 'content', ':label', ':title', ':placeholder', ':defaultLabel', ':content', 'v-tip', 'v-html'];
+const VUE_DIRECTIVE = ['v-tip', 'v-html', 'v-text', 'v-error'];
+const VUE_ATTRS = ['label', 'title', 'placeholder', 'defaultLabel', 'content', 'defaultText', 'labelText'];
+const TEMPLATE_ATTRS = VUE_ATTRS.concat(VUE_ATTRS.map(v => `:${v}`)).concat(VUE_DIRECTIVE);
 const TS_REGEX = /([^\`\~\!\@\$\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\<\>\/]+)/g;
 const URL_REGEX = /^[\s\"\'\`]*(http|https|\/|\.)/;
 const LOCALE_REGEX = /\s*\$(s)?t\(([^)]*)\)\s*/;
@@ -314,7 +316,7 @@ function findTextInVue(code: string, fileName: any) {
                             });
                         }
                     } else if (attr.name.startsWith('v-') || attr.name.startsWith('@')) {
-                        if (attr.name.startsWith('v-tip') || attr.name.startsWith('v-html')) {
+                        if (VUE_DIRECTIVE.includes(attr.name.trim())) {
                             let startPos = activeEditor?.document.positionAt(attr.end - 1 - attr.value.length);
                             let endPos = activeEditor?.document.positionAt(attr.end - 1);
                             if (startPos && endPos && activeEditor) {
