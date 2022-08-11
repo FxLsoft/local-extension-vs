@@ -7,13 +7,13 @@ import { removeFileComment, trimSpacePosition, trimWhiteSpace } from './utils';
 
 // 中文匹配
 // const DOUBLE_BYTE_REGEX = /[^\x00-\xff]/g;
-const DOUBLE_BYTE_REGEX = /([^\`\~\!\@\$\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/]+)/g;
-const TEMPLATE_REGEX = /([^\`\~\!\@\$\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/]+)/g;
-const TEMPLATE_ATTR_REGEX = /\'([^\`\~\!\@\$\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/]+)\'/g;
+const DOUBLE_BYTE_REGEX = /([^\`\~\!\@\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/]+)/g;
+const TEMPLATE_REGEX = /([^\`\~\!\@\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/]+)/g;
+const TEMPLATE_ATTR_REGEX = /\'([^\`\~\!\@\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/]+)\'/g;
 const VUE_DIRECTIVE = ['v-tip', 'v-html', 'v-text', 'v-error'];
 const VUE_ATTRS = ['label', 'title', 'placeholder', 'defaultLabel', 'content', 'defaultText', 'labelText'];
 const TEMPLATE_ATTRS = VUE_ATTRS.concat(VUE_ATTRS.map(v => `:${v}`)).concat(VUE_DIRECTIVE);
-const TS_REGEX = /([^\`\~\!\@\$\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\<\>\/]+)/g;
+const TS_REGEX = /([^\`\~\!\@\^\&\*\(\)\=\+\[\{\]\}\\\|\;\:\'\"\,\<\>\/]+)/g;
 const URL_REGEX = /^[\s\"\'\`]*(http|https|\/|\.)/;
 const LOCALE_REGEX = /\s*\$(s)?t\(([^)]*)\)\s*/;
 const EMPTY_REGEX = /^\s*$/;

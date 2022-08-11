@@ -111,7 +111,7 @@ export class WordHoverProvider implements vscode.HoverProvider {
         if (!wordRange) {
             return null;
         }
-        const localeRange = _document.getWordRangeAtPosition(_position, /t\s*\(([a-zA-Z0-9\.\"\'\,\_\-\s]+)\)/);
+        const localeRange = _document.getWordRangeAtPosition(_position, /t\s*\(([a-zA-Z0-9\$\.\"\'\,\_\-\s]+)\)/);
         const contents = new vscode.MarkdownString(`国际化 \r\n  *** \r\n`);
         if (localeRange) {
             const localeWord =  _document.getText(localeRange).split(',').map(v => v.replace(/(^t|\'|\"|\s|\(|\))/g, ''));
