@@ -2,6 +2,7 @@ import { isObject } from 'util';
 import * as vscode from 'vscode';
 import * as fs from 'fs-extra';
 import { LanguageExclude, LanguageInclude } from './Constant';
+import { Uri } from 'vscode';
 
 // 国际化字典
 export const dic: Map<string, [moduleId: string, key: string, value: string, file: string]> = new Map();
@@ -25,12 +26,13 @@ export function getDicByKey(moduleId: string, key: string) {
 
 export function getModuleLocale(moduleId: string) {
 	if (localFolder) {
+		console.log('localFolder >> ', localFolder);
 		const moduleUri = vscode.Uri.joinPath(localFolder, `${moduleId}.json`);
-		if (!fs.existsSync(moduleUri.path)) {
-			fs.createFileSync(moduleUri.path);
+		if (!fs.existsSync(moduleUri.fsPath)) {
+			fs.createFileSync(moduleUri.fsPath);
 			return {};
 		} else {
-			const text = fs.readFileSync(moduleUri.path).toLocaleString();
+			const text = fs.readFileSync(moduleUri.fsPath).toLocaleString();
 			const locale = JSON.parse(text);
 			traverseLocaleObj(locale, '', (realKey, value) => {
 				dic.delete(`${moduleId}_${realKey}`);
@@ -44,7 +46,7 @@ export function getModuleLocale(moduleId: string) {
 
 export function writeBackLocale(moduleId: string, locale: object) {
 	const moduleUri = vscode.Uri.joinPath(localFolder, `${moduleId}.json`);
-	fs.writeFileSync(moduleUri.path, JSON.stringify(locale, null, 4));
+	fs.writeFileSync(moduleUri.fsPath, JSON.stringify(locale, null, 4));
 }
 
 /**
